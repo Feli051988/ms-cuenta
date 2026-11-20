@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: ms-cuenta
+
+  datasource:
+    url: jdbc:h2:mem:dbCuenta
+    username: "sa"
+    password: 
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true 
+
+  jackson:
+    mapper:
+      sort-properties-alphabetically: false
+
+server:
+  port: 9000        
