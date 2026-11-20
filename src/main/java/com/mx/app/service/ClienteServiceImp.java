@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mx.app.dto.ClienteRequestDTO;
 import com.mx.app.dto.ClienteResponseDTO;
 import com.mx.app.entity.Cliente;
+import com.mx.app.exception.ClienteNoEncontradoException;
 import com.mx.app.mapper.ClienteMapper;
 import com.mx.app.repository.ClienteRepository;
 
@@ -39,7 +40,7 @@ public class ClienteServiceImp implements ClienteService {
 
 	@Override
 	public ClienteResponseDTO actualziar(Long id, ClienteRequestDTO request) {
-		Cliente cliente = repo.findById(id).orElseThrow(() -> new RuntimeException("Cliente no encotrado"));
+		Cliente cliente = repo.findById(id).orElseThrow(() -> new ClienteNoEncontradoException("Cliente no encotrado"));
 
 		cliente.setNombre(request.getNombre());
 		cliente.setApp(request.getApp());
@@ -59,7 +60,7 @@ public class ClienteServiceImp implements ClienteService {
 	@Override
 	public void eliminar(Long id) {
 		if (!repo.existsById(id)) {
-			throw new RuntimeException("Cliente no encoyrado con id:  " + id);
+			throw new ClienteNoEncontradoException("Cliente no encoyrado con id:  " + id);
 		}
 		repo.deleteById(id);
 
@@ -67,7 +68,7 @@ public class ClienteServiceImp implements ClienteService {
 
 	@Override
 	public ClienteResponseDTO buscar(Long id) {
-		Cliente cliente = repo.findById(id).orElseThrow(() -> new RuntimeException("Cliente no encotrado"));
+		Cliente cliente = repo.findById(id).orElseThrow(() -> new ClienteNoEncontradoException("Cliente no encotrado"));
 		return mapper.toResponse(cliente);
 	}
 
